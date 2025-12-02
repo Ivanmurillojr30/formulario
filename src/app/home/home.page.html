@@ -1,20 +1,62 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title class="ion-text-center">
+            Registro de Vehículo
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-card class="card-form">
+        <ion-card-header>
+            <ion-card-title class="ion-text-center">
+                Ingresa los datos del vehículo
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <form [formGroup]="vehicleForm" (ngSubmit)="registrar()">
+
+                <!-- Marca -->
+                <ion-item lines="full">
+                    <ion-icon name="car-outline" slot="start"></ion-icon>
+                    <ion-label position="floating">Marca</ion-label>
+                    <ion-input formControlName="marca"></ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="vehicleForm.get('marca')?.invalid && vehicleForm.get('marca')?.touched">
+                    Marca requerida
+                </ion-text>
+
+                <!-- Año -->
+                <ion-item lines="full">
+                    <ion-icon name="calendar-outline" slot="start"></ion-icon>
+                    <ion-label position="floating">Año</ion-label>
+                    <ion-input type="number" formControlName="anio"></ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="vehicleForm.get('anio')?.invalid && vehicleForm.get('anio')?.touched">
+                    Año inválido (mínimo 4 dígitos)
+                </ion-text>
+
+                <!-- Placa -->
+                <ion-item lines="full">
+                    <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+                    <ion-label position="floating">Placa</ion-label>
+                    <ion-input formControlName="placa" maxlength="7"></ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="vehicleForm.get('placa')?.invalid && vehicleForm.get('placa')?.touched">
+                    Formato inválido (ej: ABC1234)
+                </ion-text>
+
+                <!-- Botón -->
+                <ion-button expand="full" type="submit" class="btn-registrar" [disabled]="vehicleForm.invalid">
+                    Registrar Vehículo
+                </ion-button>
+
+            </form>
+
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
